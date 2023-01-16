@@ -95,8 +95,18 @@ public class GameManager : MonoBehaviour
         int val;
         if (!int.TryParse(key, out val))
         {
-            if (screen.text == "" || operators.Contains(screen.text[screen.text.Length - 1]))
+            int lastIdx = screen.text.Length - 1;
+            if (screen.text == "" || operators.Contains(screen.text[lastIdx]))
                 return;
+
+            for (int i = lastIdx; key == "." && i >= 0; i--)
+            {
+                if (screen.text[i] == '.')
+                    return;
+                else if (operators.Contains(screen.text[i]))
+                    break;
+            }
+
             if (key != ".")
                 presentOps.Add(key);
         }
